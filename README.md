@@ -1,68 +1,40 @@
 # streamgrid
 
-`streamgrid` explores data engineering in Java. The repository keeps the core rule set compact, then surrounds it with examples that show how the decisions move.
+`streamgrid` is a Java project in data engineering. Its focus is to demonstrate event-time windows, watermarks, and late-event handling.
 
-## Streamgrid Notes
+## Purpose
 
-The quickest review path is the verifier first, then the fixtures, then the operations note. That order makes it easy to see whether the code, data, and explanation still agree.
+This is intentionally local and self-contained so it can be inspected without credentials, services, or seeded history.
 
-## Why This Exists
+## Streamgrid Review Notes
 
-This project keeps the domain idea close to the tests. That makes it useful as a reference implementation, a small experiment, or a starting point for a more specialized tool.
+For a quick review, compare `schema drift` with `schema drift` before reading the middle cases.
+
+## What Is Covered
+
+- `fixtures/domain_review.csv` adds cases for schema drift and lineage depth.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/streamgrid-walkthrough.md` walks through the case spread.
+- The Java code includes a review path for `schema drift` and `schema drift`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
 ## Implementation Notes
 
-The project is organized around a compact model rather than a large framework. Inputs are scored, classified, and checked against golden fixtures. The constants live in code and are mirrored in metadata so documentation drift is easy to catch. The Java implementation uses a compact package layout and direct assertion checks.
+The repository has two validation layers: the original compact policy fixture and the domain review fixture. They are separate so one can change without hiding failures in the other.
 
-## Example Scenarios
+The Java implementation avoids hidden state so fixture changes are easy to reason about.
 
-The examples are meant to be readable before they are exhaustive. They cover enough variation to show how latency and risk can pull a decision below the threshold.
-
-## Feature Notes
-
-- Uses fixture data to keep lineage checks changes visible in code review.
-- Includes extended examples for pipeline state, including `surge` and `degraded`.
-- Documents quality gates tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
-
-## Local Setup
-
-Clone the repository, enter the directory, and run the verifier. No database server, cloud account, or token is required.
-
-## Tests
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
-
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Code Tour
-
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-
-## Boundaries
-
-The repository favors determinism over breadth. It does not pull live data, keep secrets, or depend on network access for verification.
-
-## Roadmap
-
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Split the scoring constants into a typed configuration object and validate it before use.
-- Add one more data engineering fixture that focuses on a malformed or borderline input.
-
-## Try It
+## Command
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Audit Path
+
+The check exercises the source code and the review fixture. `baseline` is the high score at 257; `stale` is the low score at 144.
+
+## Limits
+
+The fixture set is small enough to audit by hand. The next useful expansion is malformed input coverage, not extra surface area.
