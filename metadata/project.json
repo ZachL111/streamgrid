@@ -1,0 +1,32 @@
+{
+  "index": 31,
+  "phase": 1,
+  "batch": 4,
+  "name": "streamgrid",
+  "planned_name": "streamgrid",
+  "language": "Java",
+  "category": "Data engineering",
+  "goal": "Demonstrate event-time windows, watermarks, and late-event handling.",
+  "repository_url": "https://github.com/ZachL111/streamgrid",
+  "verification_command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1",
+  "model": {
+    "inputs": [
+      "demand",
+      "capacity",
+      "latency",
+      "risk",
+      "weight"
+    ],
+    "threshold": 152,
+    "risk_penalty": 4,
+    "latency_penalty": 2,
+    "weight_bonus": 4,
+    "decision_rule": "accept when score is greater than or equal to threshold, otherwise review"
+  },
+  "quality_gates": [
+    "readme constraint scan",
+    "fixture presence check",
+    "metadata JSON parse",
+    "language verifier"
+  ]
+}
